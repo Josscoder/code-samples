@@ -1,7 +1,15 @@
 name: StaffChat
 version: '${project.version}'
 main: josscoder.staffchat.StaffChatPlugin
-api-version: 1.18
 author: Josscoder
 description: Provide your staff with a private chat
 website: https://github.com/Josscoder/code-samples
+
+commands:
+  staffchat:
+    description: Provide your staff with a private chat
+    usage: "§cUsage: /sc <message>"
+    permission: command.staff.chat.permission
+    permission-message: §cYou do not have the required permissions to run this!
+    aliases:
+      - sc
