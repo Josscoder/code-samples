@@ -1,0 +1,7 @@
+name: StaffChat
+version: '${project.version}'
+main: josscoder.staffchat.StaffChatPlugin
+api-version: 1.18
+author: Josscoder
+description: Provide your staff with a private chat
+website: https://github.com/Josscoder/code-samples
