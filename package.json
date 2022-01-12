@@ -1,5 +1,5 @@
 {
-  "name": "gameapi",
+  "name": "code-samples",
   "version": "1.0.0",
   "description": "node environment",
   "directories": {
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Josscoder/GameAPI.git"
+    "url": "git+https://github.com/Josscoder/code-samples.git"
   },
   "author": "Josscoder",
   "license": "GNU",
   "bugs": {
-    "url": "https://github.com/Josscoder/GameAPI#issues"
+    "url": "https://github.com/Josscoder/code-samples#issues"
   },
-  "homepage": "https://github.com/Josscoder/GameAPI#readme",
+  "homepage": "https://github.com/Josscoder/code-samples#readme",
   "devDependencies": {
     "prettier": "^2.2.1",
     "prettier-plugin-java": "^1.0.1"
