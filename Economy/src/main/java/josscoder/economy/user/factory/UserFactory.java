@@ -3,6 +3,7 @@ package josscoder.economy.user.factory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import josscoder.economy.EconomyPlugin;
 import josscoder.economy.user.User;
 import org.bukkit.entity.Player;
 
@@ -32,5 +33,9 @@ public class UserFactory {
 
   public void remove(Player player) {
     storage.remove(player.getUniqueId());
+  }
+
+  public User getOffline(UUID uuid) {
+    return new User(uuid);
   }
 }

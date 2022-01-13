@@ -6,7 +6,6 @@ description: Manipulate the economy within your server
 website: https://github.com/Josscoder/code-samples/tree/main
 
 commands:
-  economy:
+  testeconomy:
     description: Manipulate the economy within your server
-    usage: "§cUsage /economy <help>"
     permission-message: §cYou do not have the required permissions to run this!

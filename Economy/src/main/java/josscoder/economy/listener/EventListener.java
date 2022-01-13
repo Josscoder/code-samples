@@ -24,23 +24,6 @@ public class EventListener implements Listener {
     Player player = event.getPlayer();
 
     userFactory.add(player);
-
-    User user = userFactory.get(player);
-
-    if (user == null) {
-      return;
-    }
-
-    EconomyPlugin
-        .getInstance()
-        .scheduleAsync(
-            new BukkitRunnable() {
-              @Override
-              public void run() {
-                user.load();
-              }
-            }
-        );
   }
 
   @EventHandler(priority = EventPriority.HIGHEST)
@@ -54,15 +37,15 @@ public class EventListener implements Listener {
     }
 
     EconomyPlugin
-        .getInstance()
-        .scheduleAsync(
-            new BukkitRunnable() {
-              @Override
-              public void run() {
-                user.save();
-                userFactory.remove(player);
-              }
-            }
-        );
+      .getInstance()
+      .scheduleAsync(
+        new BukkitRunnable() {
+          @Override
+          public void run() {
+            user.save();
+            userFactory.remove(player);
+          }
+        }
+      );
   }
 }

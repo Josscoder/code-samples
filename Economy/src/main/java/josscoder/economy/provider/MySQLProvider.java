@@ -6,7 +6,6 @@ import com.code.advancedsql.table.ITable;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-
 import josscoder.economy.EconomyPlugin;
 import org.bukkit.ChatColor;
 
@@ -99,10 +98,10 @@ public class MySQLProvider extends Provider {
   public int getUserCoins(String uniqueUid) {
     try {
       Map<String, Object> data = mySQL
-          .table("users_in_the_bank")
-          .select(new String[] { "amount" })
-          .where("uniqueUid = ?", uniqueUid)
-          .fetch();
+        .table("users_in_the_bank")
+        .select(new String[] { "amount" })
+        .where("uniqueUid = ?", uniqueUid)
+        .fetch();
 
       return (int) data.get("amount");
     } catch (SQLException e) {
@@ -118,8 +117,8 @@ public class MySQLProvider extends Provider {
       mySQL
         .table("users_in_the_bank")
         .update()
-          .field("amount", amount)
-          .where("uniqueUid = ?", uniqueUid)
+        .field("amount", amount)
+        .where("uniqueUid = ?", uniqueUid)
         .execute();
     } catch (SQLException e) {
       e.printStackTrace();

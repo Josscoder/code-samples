@@ -2,6 +2,7 @@ package josscoder.economy.user;
 
 import java.util.UUID;
 import josscoder.economy.EconomyPlugin;
+import josscoder.economy.event.EconomyChangeEvent;
 import josscoder.economy.provider.IProvider;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,17 +12,21 @@ import org.bukkit.entity.Player;
 public class User {
 
   private final UUID uniqueUid;
+  private final EconomyPlugin plugin;
 
   @Getter
   @Setter
-  private int money;
+  private int money = 0;
 
   public User(UUID uniqueUid) {
     this.uniqueUid = uniqueUid;
+    this.plugin = EconomyPlugin.getInstance();
+
+    EconomyPlugin.getInstance().scheduleAsync(this::load);
   }
 
   public void load() {
-    IProvider provider = EconomyPlugin.getInstance().getProvider();
+    IProvider provider = plugin.getProvider();
 
     if (!provider.contains(uniqueUid.toString())) {
       provider.createAccount(uniqueUid.toString());
@@ -39,7 +44,17 @@ public class User {
   }
 
   public void addMoney(int amount) {
-    money += amount;
+    int result = (money += amount);
+
+    if (
+      plugin
+        .callEvent(new EconomyChangeEvent(getPlayer(), money, result))
+        .isCancelled()
+    ) {
+      return;
+    }
+
+    money = result;
   }
 
   public void decreaseMoney() {
@@ -47,11 +62,21 @@ public class User {
   }
 
   public void removeMoney(int amount) {
-    money = Math.max(0, (money - amount));
+    int result = Math.max(0, (money - amount));
+
+    if (
+      plugin
+        .callEvent(new EconomyChangeEvent(getPlayer(), money, result))
+        .isCancelled()
+    ) {
+      return;
+    }
+
+    money = result;
   }
 
   public void save() {
-    IProvider provider = EconomyPlugin.getInstance().getProvider();
+    IProvider provider = plugin.getProvider();
 
     if (provider.contains(uniqueUid.toString())) {
       provider.set(uniqueUid.toString(), money);

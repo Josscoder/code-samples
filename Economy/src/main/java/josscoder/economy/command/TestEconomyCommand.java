@@ -7,7 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class EconomyCommand implements CommandExecutor {
+public class TestEconomyCommand implements CommandExecutor {
 
   @Override
   public boolean onCommand(
@@ -28,7 +28,7 @@ public class EconomyCommand implements CommandExecutor {
       return true;
     }
 
-    sender.sendMessage("MY MONEY IS: " + user.getMoney());
+    sender.sendMessage("MY MONEY IS: $" + user.getMoney());
     user.increaseMoney();
 
     return true;

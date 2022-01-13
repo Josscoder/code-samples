@@ -1,7 +1,7 @@
 package josscoder.economy;
 
 import java.util.UUID;
-import josscoder.economy.command.EconomyCommand;
+import josscoder.economy.command.TestEconomyCommand;
 import josscoder.economy.listener.EventListener;
 import josscoder.economy.provider.IProvider;
 import josscoder.economy.provider.MySQLProvider;
@@ -13,6 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
@@ -42,7 +43,9 @@ public final class EconomyPlugin extends JavaPlugin {
 
     userFactory = new UserFactory();
 
-    getServer().getPluginCommand("economy").setExecutor(new EconomyCommand());
+    getServer()
+      .getPluginCommand("testeconomy")
+      .setExecutor(new TestEconomyCommand());
     getServer().getPluginManager().registerEvents(new EventListener(), this);
 
     info(ChatColor.GREEN + "This plugin has been enabled!");
@@ -96,7 +99,11 @@ public final class EconomyPlugin extends JavaPlugin {
   }
 
   public User user(UUID uuid) {
-    return userFactory.get(uuid);
+    return (
+      !userFactory.contains(uuid)
+        ? userFactory.getOffline(uuid)
+        : userFactory.get(uuid)
+    );
   }
 
   public void scheduleAsync(Runnable runnable) {
@@ -108,5 +115,11 @@ public final class EconomyPlugin extends JavaPlugin {
     provider.close();
 
     info(ChatColor.RED + "This plugin has been disabled!");
+  }
+
+  public <T extends Event> T callEvent(T event) {
+    getServer().getPluginManager().callEvent(event);
+
+    return event;
   }
 }
