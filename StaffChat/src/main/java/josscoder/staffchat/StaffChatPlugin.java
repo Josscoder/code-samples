@@ -2,7 +2,6 @@ package josscoder.staffchat;
 
 import josscoder.staffchat.command.StaffChatCommand;
 import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class StaffChatPlugin extends JavaPlugin {
@@ -15,15 +14,17 @@ public final class StaffChatPlugin extends JavaPlugin {
       .getPluginCommand("staffchat")
       .setExecutor(new StaffChatCommand());
 
-    ConsoleCommandSender sender = getServer().getConsoleSender();
+    info(ChatColor.GREEN + "This plugin has been enabled!");
+  }
 
-    sender.sendMessage(ChatColor.GREEN + "This plugin has been enabled!");
+  public void info(String message) {
+    getServer()
+      .getConsoleSender()
+      .sendMessage(ChatColor.GRAY + "[" + getName() + "] " + message);
   }
 
   @Override
   public void onDisable() {
-    getServer()
-      .getConsoleSender()
-      .sendMessage(ChatColor.RED + "This plugin has been disabled!");
+    info(ChatColor.RED + "This plugin has been disabled!");
   }
 }

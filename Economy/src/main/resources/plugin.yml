@@ -1,0 +1,12 @@
+name: Economy
+version: '${project.version}'
+main: josscoder.economy.EconomyPlugin
+author: Josscoder
+description: Manipulate the economy within your server
+website: https://github.com/Josscoder/code-samples/tree/main
+
+commands:
+  economy:
+    description: Manipulate the economy within your server
+    usage: "§cUsage /economy <help>"
+    permission-message: §cYou do not have the required permissions to run this!
