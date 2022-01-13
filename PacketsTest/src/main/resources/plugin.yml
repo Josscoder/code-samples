@@ -1,0 +1,7 @@
+name: PacketsTest
+version: '${project.version}'
+main: josscoder.packets.PacketsTest
+api-version: 1.18
+authors: [Josscoder]
+description: A test plugin
+website: https://github.com/Josscoder/code-samples
