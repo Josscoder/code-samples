@@ -25,7 +25,7 @@ public class User {
     EconomyPlugin.getInstance().scheduleAsync(this::load);
   }
 
-  public void load() {
+  public User load() {
     IProvider provider = plugin.getProvider();
 
     if (!provider.contains(uniqueUid.toString())) {
@@ -33,6 +33,8 @@ public class User {
     } else {
       money = provider.getUserCoins(uniqueUid.toString());
     }
+
+    return this;
   }
 
   public Player getPlayer() {
@@ -43,7 +45,7 @@ public class User {
     addMoney(1);
   }
 
-  public void addMoney(int amount) {
+  public User addMoney(int amount) {
     int result = (money += amount);
 
     if (
@@ -51,17 +53,21 @@ public class User {
         .callEvent(new EconomyChangeEvent(getPlayer(), money, result))
         .isCancelled()
     ) {
-      return;
+      return this;
     }
 
     money = result;
+
+    return this;
   }
 
-  public void decreaseMoney() {
+  public User decreaseMoney() {
     removeMoney(1);
+
+    return this;
   }
 
-  public void removeMoney(int amount) {
+  public User removeMoney(int amount) {
     int result = Math.max(0, (money - amount));
 
     if (
@@ -69,17 +75,21 @@ public class User {
         .callEvent(new EconomyChangeEvent(getPlayer(), money, result))
         .isCancelled()
     ) {
-      return;
+      return this;
     }
 
     money = result;
+
+    return this;
   }
 
-  public void save() {
+  public User save() {
     IProvider provider = plugin.getProvider();
 
     if (provider.contains(uniqueUid.toString())) {
       provider.set(uniqueUid.toString(), money);
     }
+
+    return this;
   }
 }
